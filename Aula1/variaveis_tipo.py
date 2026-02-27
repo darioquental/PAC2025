@@ -101,8 +101,3 @@ print(tupla)
 # Acesso ao elemento na posição 1 (segundo elemento)
 print("Elemento na posição 1 da tupla:")
 print(tupla[1])
-
-
-# ==========================================
-# FIM DO PROGRAMA
-# ==========================================
