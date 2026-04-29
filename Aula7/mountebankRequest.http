@@ -5,20 +5,20 @@ Content-Type: application/json
 
 {
   "port": 4545,
-  "name": "API1",
   "protocol": "http",
+  "name":"API1",
   "stubs": [{
     "responses": [
-      { "is": { "statusCode": 200,
-      
-                "body": { "name":"Dario", "tel":96404}
-                }}
+      { "is": { "statusCode": 200 ,
+                "body":{"name":"Dario", "tel":9343}
+             }
+      }
     ],
     "predicates": [{
       "and": [
         {
           "equals": {
-            "path": "/test2",
+            "path": "/test",
             "method": "POST",
             "headers": { "Content-Type": "application/json" }
           }
