@@ -35,4 +35,10 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:4545/test
+Content-Type: application/json
+
+
+###
 DELETE http://localhost:2525/imposters/4545
+Content-Type: application/json

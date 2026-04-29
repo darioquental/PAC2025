@@ -1,0 +1,50 @@
+
+POST https://play.google.com/log?format=json&hasfast=true&authuser=0
+
+[[1,null,null,null,null,null,null,null,null,null,[null,null,null,null,"pt-PT",null,null,null,[[["Google Chrome","147"],["Not.A/Brand","8"],["Chromium","147"]],0,"Android","","","","147.0.7727.102"],[1,0]]],373,[[1777471253967,null,null,null,null,null,null,"[1,28834,538,null,\"906950010.0\",\"Fg_yacuXNdKU-d8Ps5xC\",null,null,null,\"pt-PT\",\"PRT\",1,8,773,null,1,0,null,\"og-d2032aad-810c-438c-bb2b-5f22fd4c6d68\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1,null,null,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,[2,5,\"eh\",50],null,null,null,null,1]",null,null,null,null,null,null,-3600,[null,null,null,"[null,null,[3700942,3701384,102772546,105109531,105109534,105140909,105140912,105216917,115517798,115517801,116119825,116249040,116249043,116690943,116690949,116974618,116974621]]"],null,null,null,null,1],[1777471253967,null,null,null,null,null,null,"[169,28834,538,null,\"906950010.0\",\"Fg_yacuXNdKU-d8Ps5xC\",null,null,null,\"pt-PT\",\"PRT\",1,8,773,null,1,0,null,\"og-d2032aad-810c-438c-bb2b-5f22fd4c6d68\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,[2,5,\"eh\",50],null,null,null,null,1,null,null,null,null,null,null,null,null,null,null,[1,1]]",null,null,null,null,null,null,-3600,[null,null,null,"[null,null,[3700942,3701384,102772546,105109531,105109534,105140909,105140912,105216917,115517798,115517801,116119825,116249040,116249043,116690943,116690949,116974618,116974621]]"],null,null,null,null,2],[1777471254058,null,null,null,null,null,null,"[130,28834,538,null,\"906950010.0\",\"Fg_yacuXNdKU-d8Ps5xC\",null,null,null,\"pt-PT\",\"PRT\",1,8,864,null,1,0,null,\"og-d2032aad-810c-438c-bb2b-5f22fd4c6d68\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,[2,5,\"eh\",50],null,null,null,null,1]",null,null,null,null,null,null,-3600,[null,null,null,"[null,null,[3700942,3701384,102772546,105109531,105109534,105140909,105140912,105216917,115517798,115517801,116119825,116249040,116249043,116690943,116690949,116974618,116974621]]"],null,null,null,null,3]],1777471254976,null,null,null,null,null,null,null,null,null,null,null,null,null,[[null,[null,null,null,null,null,null,null,null,null,null,null,null,122505695]],9]]
+
+
+###
+
+POST http://localhost:2525/imposters
+Content-Type: application/json
+
+{
+  "port": 4546,
+  "protocol": "http",
+  "name":"API2",
+  "stubs": [{
+    "responses": [
+      { "is": { "statusCode": 200 ,
+                "body":{"name":"Dario", "tel":97777777}
+             }
+      }
+    ],
+    "predicates": [{
+      "and": [
+        {
+          "equals": {
+            "path": "/test",
+            "method": "POST",
+            "headers": { "Content-Type": "application/json" }
+          }
+        },
+        {
+          "not": {
+            "contains": { "body": "requiredField" },
+            "caseSensitive": true
+          }
+        }
+      ]
+    }]
+  }]
+}
+
+###
+POST http://localhost:4546/test
+Content-Type: application/json
+
+###
+DELETE http://localhost:2525/imposters/4546
+
+
