@@ -1,0 +1,142 @@
+Ferramentas no Windows
+1. Instalar PuTTY
+
+Cliente SSH para acesso remoto a servidores Linux.
+
+Download oficial: PuTTY Official Site
+Instalar normalmente (Next > Next > Finish)
+Testar conexão:
+ssh utilizador@ip-do-servidor
+2. Instalar FileZilla
+
+Cliente FTP/SFTP para transferência de ficheiros.
+
+Download oficial: FileZilla Official Site
+Configurar ligação:
+Host: IP do servidor
+Utilizador
+Password
+Porta:
+22 → SFTP
+21 → FTP
+Configuração de Serviços em Linux
+Passo 1 — Instalar o Serviço
+
+Exemplo: instalar servidor FTP
+
+Rocky Linux / CentOS / RHEL
+sudo yum install vsftpd -y
+Ubuntu / Debian
+sudo apt install vsftpd -y
+Passo 2 — Configurar o Serviço
+
+Os ficheiros de configuração normalmente ficam em /etc.
+
+Exemplos:
+SSH:
+sudo nano /etc/ssh/sshd_config
+FTP:
+sudo nano /etc/vsftpd/vsftpd.conf
+
+Depois de editar:
+
+guardar → CTRL + O
+sair → CTRL + X
+Passo 3 — Ativar o Serviço no Arranque
+
+Permite iniciar automaticamente após reboot.
+
+sudo systemctl enable sshd
+
+ou
+
+sudo systemctl enable vsftpd
+Passo 4 — Iniciar o Serviço
+sudo systemctl start sshd
+
+ou
+
+sudo systemctl start vsftpd
+Passo 4.1 — Reiniciar Após Alterações
+
+Sempre que alterar configurações:
+
+sudo systemctl restart sshd
+
+ou
+
+sudo systemctl restart vsftpd
+Verificar Estado do Serviço
+
+Muito importante para troubleshooting:
+
+sudo systemctl status sshd
+
+ou
+
+sudo systemctl status vsftpd
+SELinux
+Permitir FTP no SELinux
+sudo setsebool -P ftpd_full_access on
+
+Verificar estado:
+
+getenforce
+Firewall
+Adicionar Serviço à Firewall
+SSH
+sudo firewall-cmd --add-service=ssh
+FTP
+sudo firewall-cmd --add-service=ftp
+Tornar Permanente
+sudo firewall-cmd --runtime-to-permanent
+Recarregar Firewall
+sudo firewall-cmd --reload
+Testes de Conectividade
+Ver portas abertas
+sudo firewall-cmd --list-services
+Testar SSH
+ssh user@ip
+Testar FTP
+
+No FileZilla:
+
+Host → IP do servidor
+Porta → 21
+User/Password
+Comandos Úteis
+Ver serviços ativos
+systemctl list-units --type=service
+Ver portas abertas
+ss -tulnp
+Logs do serviço
+journalctl -u sshd
+
+ou
+
+journalctl -u vsftpd
+Fluxo Resumido
+Instalar → Configurar → Enable → Start → Firewall → SELinux → Testar
+Exemplo Completo (SSH)
+sudo yum install openssh-server -y
+
+sudo nano /etc/ssh/sshd_config
+
+sudo systemctl enable sshd
+
+sudo systemctl start sshd
+
+sudo firewall-cmd --add-service=ssh
+
+sudo firewall-cmd --runtime-to-permanent
+
+sudo firewall-cmd --reload
+
+sudo systemctl status sshd
+
+
+
+O exemplo é meramente demonstrativo e não um passo a passo
+
+Site com configurações de servidor Linux
+https://www.server-world.info/en/
